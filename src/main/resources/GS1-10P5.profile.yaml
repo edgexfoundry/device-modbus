@@ -1,0 +1,133 @@
+# Copyright 2017 Dell Inc. All rights reserved.
+name: "GS1-VariableSpeedMotor"
+manufacturer: "Automation Direct"
+model: "GS1-10P5"
+labels: [ 'motor', 'Industrial', 'Motor Controller', 'variable speed']
+description: "GS1 AC Drive Motor Controller"
+deviceResources:
+      -   
+        name: OutputFrequency
+        description: "PWM Output Frequency for driving motor."
+        attributes: 
+            { HoldingRegister: "8451" }
+        properties: 
+            value:
+                { type: "Integer", size: "2", readWrite: "RW", defaultValue: "1"}
+            units:
+                { type: "String", readWrite: "R", defaultValue: "Hz"}
+      -             
+        name: RPM
+        description: "RPM speed of the motor."
+        attributes: 
+            { HoldingRegister: "8455" }
+        properties: 
+            value:
+                { type: "Integer", size: "2", readWrite: "RW", minimum: "0", maximum: "1500", defaultValue: "1"}
+            units:
+                { type: "String", readWrite: "R", defaultValue: "rpm"}
+      -
+        name: OutputVoltage
+        description: "Output Voltage driving the motor."
+        attributes: 
+            { HoldingRegister: "8454" }
+        properties: 
+            value:
+                { type: "Integer", size: "2", readWrite: "RW", scale: "0.1", defaultValue: "1"}
+            units:
+                { type: "String", readWrite: "R", defaultValue: "Volts"}
+      -
+        name: Status
+        description: "On/Off Status of the motor."
+        attributes: 
+            { HoldingRegister: "2331" }
+        properties: 
+            value:
+                { type: "Integer", size: "2", readWrite: "RW", minimum: "0", maximum: "1", defaultValue: "0"}
+            units:
+                { type: "String", readWrite: "R", defaultValue: "Enabled/Disabled"}
+
+      -         
+        name: Direction
+        description: "Clockwise/Counterclockwise Direction of the motor."
+        attributes: 
+            { HoldingRegister: "2332" }
+        properties: 
+            value:
+                { type: "Integer", size: "2", readWrite: "RW", minimum: "0", maximum: "1", defaultValue: "0"}
+            units:
+                { type: "String", readWrite: "R", defaultValue: "Clockwise/CounterClockwise"}
+      -              
+        name: Frequency
+        description: "PWM Frequency driving the motor."
+        attributes: 
+            { HoldingRegister: "2330" }
+        properties: 
+            value:
+                { type: "Integer", size: "2", readWrite: "RW", scale: "2.875", defaultValue: "0"}
+            units:
+                { type: "String", readWrite: "R", defaultValue: "Hz"}
+
+resources:
+  -
+    name: OutputVoltage
+    get:
+      - { operation: "get", object: "OutputVoltage", parameter: "OutputVoltage", property: "value" }
+
+  -    
+    name: Status
+    get:
+      - { operation: "get", object: "Status", parameter: "Status", property: "value" }
+
+    set:
+      - { index: "1", operation: "set", object: "Status", property: "value", parameter: "Status" }
+  - 
+    name: RPM
+    get:
+      - { operation: "get", object: "RPM", parameter: "RPM", property: "value" }
+
+    set:
+      - { index: "1", operation: "set", object: "Status", property: "value", parameter: "1" }
+      - { index: "2", operation: "set", object: "Frequency", property: "value", parameter: "RPM"}
+  -
+    name: AllValues
+    get:
+      - { index: "1", operation: "get", object: "RPM", parameter: "RPM", property: "value" }
+      - { index: "2", operation: "get", object: "OutputVoltage", parameter: "OutputVoltage", property: "value" }
+      
+  -
+    name: MotorControl
+    get:
+      - { operation: "get", resource: "AllValues" }
+    set:
+      - { operation: "set", resource: "RPM", parameter: "RPM" }
+      
+
+                
+commands: 
+  - 
+  
+    name: MotorControl
+    get: 
+        path: "/api/v1/device/{deviceId}/MotorControl"
+        responses: 
+          - 
+            code: "200"
+            description: "Control the motor."
+            expectedValues: ["RPM", "OutputVoltage"]
+          -
+            code: "503"
+            description: "service unavailable"
+            expectedValues: []
+
+    put:
+        path: "/api/v1/device/{deviceId}/MotorControl"
+        parameterNames: ["RPM"]
+        responses:
+          - 
+            code: "204"
+            description: "Control the motor."
+            expectedValues: []
+          -
+            code: "503"
+            description: "service unavailable"
+            expectedValues: []

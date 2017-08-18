@@ -1,0 +1,107 @@
+# Copyright 2017 Dell Inc. All rights reserved.
+name: "Network Power Meter"
+manufacturer: "Dent Instruments"
+model: "PS3037"
+description: "Power Scout Meter"
+labels: 
+  - "modbus"
+  - "industrial"
+  - "ammeter"
+  - "powerscout"
+
+deviceResources: 
+      -   
+        name: KWL1
+        description: "L1 Individual Phase Power."
+        attributes: 
+            { HoldingRegister: "4028" }
+        properties: 
+            value:
+                { type: "Float", readWrite: "R", size: "1", scale: "0.001", minimum: "0", maximum: "1", defaultValue: "0" }
+            units:
+                { type: "String", readWrite: "R", defaultValue: "KW" }
+      -   
+        name: KWL2
+        description: "L2 Individual Phase Power."
+        attributes: 
+            { HoldingRegister: "4029" }
+        properties: 
+            value:
+                { type: "Float", readWrite: "R", size: "1", scale: "0.001", minimum: "0", maximum: "1", defaultValue: "0" }
+            units:
+                { type: "String", readWrite: "R", defaultValue: "KW" }
+      -   
+        name: KWL3
+        description: "L3 Individual Phase Power."
+        attributes: 
+            { HoldingRegister: "4030" }
+        properties: 
+            value:
+                { type: "Float", readWrite: "R", size: "1", scale: "0.001", minimum: "0", maximum: "1", defaultValue: "0" }
+            units:
+                { type: "String", readWrite: "R", defaultValue: "KW" }
+      -   
+        name: AmpsL1
+        description: "L1 Individual Phase Instantaneous Current."
+        attributes: 
+            { HoldingRegister: "7055" }
+        properties: 
+            value:
+                { type: "Float", readWrite: "R", size: "1", scale: "0.1", minimum: "0", maximum: "100", defaultValue: "0" }
+            units:
+                { type: "String", readWrite: "R", defaultValue: "amps" }
+      -   
+        name: AmpsL2
+        description: "L2 Individual Phase Instantaneous Current."
+        attributes: 
+            { HoldingRegister: "7056" }
+        properties: 
+            value:
+                { type: "Float", readWrite: "R", size: "1", scale: "0.1", minimum: "0", maximum: "100", defaultValue: "0" }
+            units:
+                { type: "String", readWrite: "R", defaultValue: "amps" }
+      -   
+        name: AmpsL3
+        description: "L3 Individual Phase Instantaneous Current."
+        attributes: 
+            { HoldingRegister: "7057" }
+        properties: 
+            value:
+                { type: "Float", readWrite: "R", size: "1", scale: "0.1", minimum: "0", maximum: "100", defaultValue: "0" }
+            units:
+                { type: "String", readWrite: "R", defaultValue: "amps" }  
+                
+resources:
+  -
+    name: KWLevels
+    get:
+      - { index: "1", operation: "get", object: "KWL1", parameter: "KWL1", property: "value" }
+      - { index: "2", operation: "get", object: "KWL2", parameter: "KWL2", property: "value" }
+      - { index: "3", operation: "get", object: "KWL3", parameter: "KWL3", property: "value" }
+  -
+    name: AmpLevels
+    get:
+      - { index: "1", operation: "get", object: "AmpsL1", parameter: "AmpsL1", property: "value" }
+      - { index: "2", operation: "get", object: "AmpsL2", parameter: "AmpsL2", property: "value" }
+      - { index: "3", operation: "get", object: "AmpsL3", parameter: "AmpsL3", property: "value" }
+  -
+    name: CurrentPower
+    get:
+      - { index: "1", operation: "get", resource: "KWLevels" }
+      - { index: "2", operation: "get", resource: "AmpLevels" }
+  
+commands: 
+  - 
+  
+    name: CurrentPower
+    get: 
+        path: "/api/v1/device/{deviceId}/CurrentPower"
+        responses: 
+          - 
+            code: "200"
+            description: "Get the power and amperage levels."
+            expectedValues: ["KWL1", "KWL2", "KWL3", "AmpsL1", "AmpsL2", "AmpsL3"]
+          -
+            code: "503"
+            description: "service unavailable"
+            expectedValues: []
