@@ -157,7 +157,7 @@ public class DeviceStore {
 	
 	private boolean compare(Device a, Device b) {
 		if (a.getAddressable().equals(b.getAddressable()) 
-				&& a.getAdminState().equals(b.getAddressable())
+				&& a.getAdminState().equals(b.getAdminState())
 				&& a.getDescription().equals(b.getDescription())
 				&& a.getId().equals(b.getId())
 				&& a.getLabels().equals(b.getLabels())
