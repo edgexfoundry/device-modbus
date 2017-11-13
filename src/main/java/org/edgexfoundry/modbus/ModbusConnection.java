@@ -59,7 +59,7 @@ public class ModbusConnection {
 			if(connections.containsKey(addressable.getAddress())){
 				connection = connections.get(addressable.getAddress());
 			}
-			else{ 
+			else{
 				if(addressable.getProtocol() == Protocol.HTTP){
 					logger.info("creating TCP connection");
 					connection = createTCPConnection(addressable);
@@ -100,7 +100,7 @@ public class ModbusConnection {
 					params.setStopbits(Integer.parseInt(serialParams[3].trim()));
 					logger.info("Stop Bitse:" + serialParams[3].trim());
 
-					
+
 				}
 				if(serialParams[4] != null){
 					params.setParity(Integer.parseInt(serialParams[4].trim()));
@@ -108,12 +108,12 @@ public class ModbusConnection {
 
 				}
 
-				
+
 				params.setEncoding("rtu");
 				params.setEcho(false);
-			}			
+			}
 			con = new SerialConnection(params);
-			con.setTimeout(100);		
+			con.setTimeout(100);
 			con.open();
 
 		}catch(Exception e){
@@ -145,7 +145,7 @@ public class ModbusConnection {
 		if(connection instanceof TCPMasterConnection){
 			TCPMasterConnection con = (TCPMasterConnection)connection;
 
-			req.setUnitID(0);
+			req.setUnitID(Integer.valueOf(addressable.getPath()));
 
 			try
 			{
@@ -177,7 +177,7 @@ public class ModbusConnection {
 			}
 		}
 		else if(connection instanceof SerialConnection){
-			req.setUnitID(1);
+			req.setUnitID(Integer.valueOf(addressable.getPath()));
 			req.setHeadless();
 			SerialConnection con = (SerialConnection)connection;
 			try
