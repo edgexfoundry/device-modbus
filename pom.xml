@@ -23,7 +23,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.edgexfoundry</groupId>
 	<artifactId>device-modbus</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.2.1-SNAPSHOT</version>
 	<name>EdgeX Foundry Modbus Device Micro Service</name>
 	<description>EdgeX Foundry Modbus Device Micro Service initially created with the DS SDK</description>
 
@@ -31,12 +31,12 @@
 		<assembley-plugin.version>2.5.5</assembley-plugin.version>
 		<spring.cloud.version>Brixton.SR5</spring.cloud.version>
 		<j2mod.version>2.3.2</j2mod.version>
-		<core-metadata-client.version>0.2.0-SNAPSHOT</core-metadata-client.version>
-		<core-data-client.version>0.2.0-SNAPSHOT</core-data-client.version>
-		<core-domain.version>0.2.0-SNAPSHOT</core-domain.version>
-		<core-test.version>0.2.0-SNAPSHOT</core-test.version>
-		<core-exception.version>0.2.0-SNAPSHOT</core-exception.version>
-		<support-logging-client.version>0.2.0-SNAPSHOT</support-logging-client.version>
+		<core-metadata-client.version>0.2.1-SNAPSHOT</core-metadata-client.version>
+		<core-data-client.version>0.2.1-SNAPSHOT</core-data-client.version>
+		<core-domain.version>0.2.1-SNAPSHOT</core-domain.version>
+		<core-test.version>0.2.1-SNAPSHOT</core-test.version>
+		<core-exception.version>0.2.1-SNAPSHOT</core-exception.version>
+		<support-logging-client.version>0.2.1-SNAPSHOT</support-logging-client.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
