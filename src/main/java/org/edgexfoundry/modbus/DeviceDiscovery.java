@@ -101,8 +101,8 @@ public class DeviceDiscovery {
 		Addressable addressable = createAddressable(device, name, watcher.getService().getAddressable());
 		newDevice.setAddressable(addressable);
 		newDevice.setLabels(watcher.getService().getLabels());
-		newDevice.setAdminState(AdminState.unlocked);
-		newDevice.setOperatingState(OperatingState.enabled);
+		newDevice.setAdminState(AdminState.UNLOCKED);
+		newDevice.setOperatingState(OperatingState.ENABLED);
 		return newDevice;
 	}
 	
@@ -118,8 +118,8 @@ public class DeviceDiscovery {
 			for (Map<String,String> device : availableList.getScan()) {
 				Device matchingDevice = deviceExists(device);
 				if (matchingDevice != null) {
-					if (matchingDevice.getOperatingState().equals(OperatingState.disabled) || devices.getDevice(matchingDevice.getName()) == null) {
-						matchingDevice.setOperatingState(OperatingState.enabled);
+					if (matchingDevice.getOperatingState().equals(OperatingState.DISABLED) || devices.getDevice(matchingDevice.getName()) == null) {
+						matchingDevice.setOperatingState(OperatingState.ENABLED);
 						devices.add(matchingDevice);
 					}
 					continue;
