@@ -232,7 +232,7 @@ public class ModbusConnection {
 					scaledValue = newValue.intValue() + "" ;
 				}
 				ModbusRequest req = new WriteSingleRegisterRequest(Integer.parseInt(object.getAttributes().getHoldingRegister()), new SimpleRegister(Integer.parseInt(scaledValue)));
-				req.setUnitID(0);
+				req.setUnitID(Integer.valueOf(addressable.getPath()));
 				con.connect();
 				ModbusTCPTransaction transaction = new ModbusTCPTransaction(con);
 				transaction.setRequest(req);
@@ -274,7 +274,7 @@ public class ModbusConnection {
 					scaledValue = newValue.intValue() + "" ;
 				}
 				ModbusRequest req = new WriteSingleRegisterRequest(Integer.parseInt(object.getAttributes().getHoldingRegister()), new SimpleRegister(Integer.parseInt(scaledValue)));
-				req.setUnitID(0);
+				req.setUnitID(Integer.valueOf(addressable.getPath()));
 				con.open();
 				ModbusSerialTransaction transaction = new ModbusSerialTransaction(con);
 				transaction.setRequest(req);
