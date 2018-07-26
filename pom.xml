@@ -33,7 +33,7 @@
 		<j2mod.version>2.3.2</j2mod.version>
 		<core-metadata-client.version>0.5.0-SNAPSHOT</core-metadata-client.version>
 		<core-data-client.version>0.5.0-SNAPSHOT</core-data-client.version>
-		<core-domain.version>0.5.0-SNAPSHOT</core-domain.version>
+		<core-domain.version>0.6.0-SNAPSHOT</core-domain.version>
 		<core-test.version>0.6.0-SNAPSHOT</core-test.version>
 		<core-exception.version>0.5.0-SNAPSHOT</core-exception.version>
 		<support-logging-client.version>0.5.0-SNAPSHOT</support-logging-client.version>
@@ -180,9 +180,9 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>staging</id>
-			<name>EdgeX Staging Repository</name>
-			<url>${nexusproxy}/${repobasepath}/staging</url>
+			<id>releases</id>
+			<name>EdgeX Release Repository</name>
+			<url>${nexusproxy}/${repobasepath}/releases</url>
 		</repository>
 		<repository>
 			<id>snapshots</id>
