@@ -11,7 +11,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.edgexfoundry</groupId>
 	<artifactId>device-modbus</artifactId>
-	<version>0.5.0-SNAPSHOT</version>
+	<version>0.5.1-SNAPSHOT</version>
 	<name>device-modbus</name>
 	<description>EdgeX Foundry device-modbus</description>
 
@@ -31,7 +31,7 @@
                         <artifactItem>
                             <groupId>org.edgexfoundry</groupId>
                             <artifactId>device-modbus</artifactId>
-                            <version>0.5.0-SNAPSHOT</version>
+                            <version>0.5.1-SNAPSHOT</version>
                             <outputDirectory>.</outputDirectory>
                             <destFileName>device-modbus.jar</destFileName>
                         </artifactItem>
